@@ -8,6 +8,7 @@ var app = express();
 var server = http.createServer(app);
 var defaultRoute = require("./app/routes/default.route.js");
 var path = require("path");
+var bodyParser = require("body-parser");
 
 var presentationRoute = require("./app/routes/presentation.route.js");
 
@@ -15,6 +16,7 @@ var presentationRoute = require("./app/routes/presentation.route.js");
 server.listen(CONFIG.port);
 app.use(defaultRoute);
 app.use(presentationRoute);
+app.use(bodyParser.json("application/json"));
 
 
 app.use("/admin", express.static(path.join(__dirname, "public/admin")));
