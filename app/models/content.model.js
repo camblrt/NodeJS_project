@@ -30,6 +30,9 @@ module.exports = class ContentModel {
 
 
 static create(content, callback){
+  if(content.id === null){
+    return callback(new Error("id ne peut pas etre null"));
+  }
       if(content.getData().length >0){
         fs.writeFile(CONFIG.contentDirectory + content.fileName, content.getData(), (err,res) => {
           if(err){
@@ -56,35 +59,76 @@ static create(content, callback){
           callback(null,this);
         })
       }
-  }
+    }
+
 
 static read(id, callback){
+  if(id === null){
+    return callback(new Error("id ne peut pas etre null"));
+  }
       util.readFileIfExists(util.getMetaFilePath(id) , (err,data) => {
         if(err){
-          return callback(err);
+          return callback(new Error("Ce fichier n'existe pas"));
         }
 
-        callback(null, new ContentModel(data));
+        callback(null, new ContentModel(JSON.parse(data.toString())));
       })
    }
 
  static update(content, callback){
-   "use strict";
-    if(content.type === "img" && content.data != null && content.data > 0){
-        create(content , callback);
-     }
+   if(content.id === null){
+     return callback(new Error("id ne peut pas etre null"));
    }
+    if(content.getData().length > 0){
+      ContentModel.read(content.id, (err,res) => {
+        if(err){
+          return callback(err);
+        }
+        ContentModel.create(content , (err,res) =>{
+          if(err){
+            return callback(err);
+          }
+          return callback(null, content);
+        })
+      })
+
+   }
+ }
 
 
 
   static delete(id, callback){
-    "use strict";
-      fs.deleteFile(read(id, callback), (err,res) =>{
-        if(err){
-          console.log(err)
-          return
-        }
-        console.log("File deleted")
-      })
-     }
+    if(id === null){
+      return callback(new Error("id ne peut pas etre null"));
+    }
+    ContentModel.read(id, (err,res) => {
+      if(err){
+        callback(err);
+      }
+      if(res.fileName !== null){
+        var neededId = res.id
+        fs.unlink(util.getDataFilePath(res.fileName), (err,res) =>{
+          if(err){
+            return callback(err);
+          }
+          fs.unlink(util.getMetaFilePath(neededId), (err,res) =>{
+            if(err){
+              return callback(err);
+            }
+            callback(null, this);
+          })
+        })
+
+      }
+      else{
+        fs.unlink(util.getMetaFilePath(JSON.parse(res).id), (err,res) =>{
+          if(err){
+            return callback(err);
+          }
+          callback(null, this);
+        })
+       }
+
+    })
+  }
  }

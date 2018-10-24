@@ -196,7 +196,7 @@ function logError(err) {
 			logError(err);
 			return Promise.reject(new Error("========== TESTS PHASE 1 : KO =========="));
 		})
-	/*	.then(testErr)
+		.then(testErr)
 		.then(function() {
 			console.log("========== TESTS PHASE 2 : OK ==========");
 		}, function(err) {
@@ -206,5 +206,5 @@ function logError(err) {
 			console.log("========== FIN TESTS ==========");
 		}, function(err) {
 			console.log(err.message);
-		});*/
+		});
 })();
