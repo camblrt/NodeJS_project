@@ -16,8 +16,8 @@ var presentationRoute = require("./app/routes/presentation.route.js");
 server.listen(CONFIG.port);
 app.use(defaultRoute);
 app.use(presentationRoute);
-app.use(bodyParser.json("application/json"));
 
 
 app.use("/admin", express.static(path.join(__dirname, "public/admin")));
 app.use("/watch", express.static(path.join(__dirname, "public/watch")));
+module.exports = app;

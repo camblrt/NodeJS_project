@@ -1,18 +1,18 @@
 'use strict';
 
 var express = require("express");
+var bodyParser = require("body-parser");
 var router = express.Router();
-var bodyParser = require("body-parser")
-var app = express();
 module.exports = router;
 var fs = require("fs");
 var CONFIG = JSON.parse(process.env.CONFIG);
 const path = require('path');
+var jsonParser = bodyParser.json();
 
 const listJSON = [];
 
 
-router.route("/loadPresentation")
+router.route("/loadPres")
   .get(function(request, response){
     const map = {};
 
@@ -44,7 +44,7 @@ router.route("/loadPresentation")
     })
   });
 
-router.route("/savePresentation")
+router.route("/savePres")
   .get(function(request, response){
     // response.readFile()
     response.end("It works! from presentationSave") //écrit dans le browser
@@ -52,23 +52,14 @@ router.route("/savePresentation")
 
 
   })
-  .post(function(request, response){
-    app.use(bodyParser.json())
-    var data = JSON.stringify(request.body, null, 2)
-    console.log(data)
-    fs.writeFile(data + ".pres.json", "Hello", function (err){
+  .post(jsonParser,function(request, response){
+    var data = JSON.stringify(request.body, null, 2);
+    fs.writeFile(CONFIG.presentationDirectory + request.body.id + ".pres.json", data, function (err){
       if(err){
         console.error(err.message);
       }
       console.log("Saved");
+      response.send("Saved")
     })
-    /*fs.readFile(JSONfile, (err,data)=>{
-      if(err){
-        console.error(err.message);
-        return;
-      }
-      console.log(data.toString());
 
-    })*/
-    response.send(data)
   })
