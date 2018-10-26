@@ -6,12 +6,6 @@ const util = require ("../utils/utils.js")
 
 
 module.exports = class ContentModel {
-  /*public type;
-  public id;
-  public title;
-  public src;
-  public fileName;
-  private data;*/
 
   constructor({type,id,title,src,fileName}) {
     this.type = type;
