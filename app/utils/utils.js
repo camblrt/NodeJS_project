@@ -37,7 +37,6 @@ this.readFileIfExists = function(path, callback) {
 		}
 	});
 };
-
 this.getMetaFilePath = function(id) {
 	return path.join(CONFIG.contentDirectory, id + ".meta.json");
 };

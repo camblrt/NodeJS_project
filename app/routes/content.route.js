@@ -6,7 +6,7 @@ var router = express.Router();
 var contentController = require('./../controllers/content.controller.js');
 module.exports = router;
 
-var multerMiddleware = multer({ "dest": "app/content/" });
+var multerMiddleware = multer({ "dest": "/tmp/" });
 
 router.route("/contents")
 .get(contentController.list)

@@ -33,6 +33,9 @@ static create(content, callback){
   if(content.id === null){
     return callback(new Error("id ne peut pas etre null"));
   }
+  if(!content.toString().includes({})){
+    return callback(new Error("Content doit être un objet JSON"));
+  }
       if(content.getData().length >0){
         fs.writeFile(CONFIG.contentDirectory + content.fileName, content.getData(), (err,res) => {
           if(err){
