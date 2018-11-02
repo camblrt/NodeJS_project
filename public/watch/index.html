@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ma première page avec du style</title>
+</head>
+<script type="text/javascript" src="/socket.io/socket.io.js">
+  var socket = io.connect();
+  socket.on('connection', (data)=>{
+    socket.emit('_data_com_', data);
+  });
+  socket.emit('connection');
+</script>
