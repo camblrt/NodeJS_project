@@ -65,7 +65,7 @@ static read(id, callback){
   }
       util.readFileIfExists(util.getMetaFilePath(id) , (err,data) => {
         if(err){
-          return callback(new Error("Ce fichier n'existe pas"));
+          return callback(new Error("Le fichier avec l'id " + id +" n'existe pas"));
         }
 
         callback(null, new ContentModel(JSON.parse(data.toString())));
