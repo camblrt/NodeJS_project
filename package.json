@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "node testContentModel.js",
-    "start": "node app.js"
+    "start": "cd ../ReactStepByStep && npm run-script build && cp -r build/ ../NodeJS_project && cd ../NodeJS_project && node app.js"
   },
   "private": true,
   "author": "",

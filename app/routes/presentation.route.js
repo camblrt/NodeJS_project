@@ -30,7 +30,7 @@ router.route("/loadPres")
              console.error(err.message);
              return;
            }
-           console.log(data.toString());
+           console.log("Helloo");
            var JSONfile = JSON.parse(data.toString());
            map[JSONfile.id] = JSONfile;
 

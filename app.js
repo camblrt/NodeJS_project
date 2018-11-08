@@ -20,7 +20,8 @@ app.use(defaultRoute);
 app.use(presentationRoute);
 app.use(contentRoute);
 
-app.use("/admin", express.static(path.join(__dirname, "public/admin")));
+app.use("/admin", express.static(path.join(__dirname, "build")));
+app.use("/static", express.static(path.join(__dirname, "build/static")));
 app.use("/watch", express.static(path.join(__dirname, "public/watch")));
 
 server.listen(CONFIG.port);
