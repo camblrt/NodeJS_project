@@ -9,7 +9,6 @@ var CONFIG = JSON.parse(process.env.CONFIG);
 const path = require('path');
 var jsonParser = bodyParser.json();
 const axios = require("axios");
-const window = require("window");
 
 
 router.route("/login")
@@ -17,7 +16,6 @@ router.route("/login")
     response.send("It works");
   })
   .post(jsonParser, function(request, response){
-     response.send(true);
       axios.post('http://localhost:8080/FrontAuthWatcherWebService/rest/WatcherAuth', { "login": request.body.userName, "password":request.body.password})
       .then(function (res){
         let autorise = "NONE";
