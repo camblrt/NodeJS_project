@@ -30,7 +30,6 @@ router.route("/loadPres")
              console.error(err.message);
              return;
            }
-           console.log("Helloo");
            var JSONfile = JSON.parse(data.toString());
            map[JSONfile.id] = JSONfile;
 
@@ -45,20 +44,12 @@ router.route("/loadPres")
   });
 
 router.route("/savePres")
-  .get(function(request, response){
-    // response.readFile()
-    response.end("It works! from presentationSave") //écrit dans le browser
-  	console.log("It works! from routes")  // écrit dans le terminal
-
-
-  })
   .post(jsonParser,function(request, response){
     var data = JSON.stringify(request.body, null, 2);
     fs.writeFile(CONFIG.presentationDirectory + request.body.id + ".pres.json", data, function (err){
       if(err){
         console.error(err.message);
       }
-      console.log("Saved");
       response.send("Saved")
     })
 

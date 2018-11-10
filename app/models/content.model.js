@@ -35,13 +35,11 @@ static create(content, callback){
           if(err){
             return callback(err);
           }
-          console.log("enregistré en image");
           var data = JSON.stringify(content)
           fs.writeFile(CONFIG.contentDirectory + content.id +".meta.json", data, (err,res) =>{
             if(err){
               return callback(err);
             }
-            console.log("enregistré en JSON");
             callback(null,this);
           })
         })
@@ -52,7 +50,6 @@ static create(content, callback){
           if(err){
             return callback(err);
           }
-          console.log("enregistré en JSON");
           callback(null,this);
         })
       }

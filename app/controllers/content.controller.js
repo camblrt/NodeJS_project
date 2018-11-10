@@ -27,7 +27,6 @@ module.exports.list = function (req, res){
           console.error(err.message);
           return;
         }
-        console.log(data.toString());
         var JSONfile = JSON.parse(data.toString());
         map[JSONfile.id] = JSONfile;
 
@@ -47,12 +46,10 @@ module.exports.read = function (req, response){
     if(err){
       return(err);
     }
-    console.log(req.query);
     if(!!req.query.json){
       return response.send(res);
     }
     if(res.fileName != null && res.type === "img"){
-      console.log(util.getDataFilePath(res.fileName));
         return response.sendFile(util.getDataFilePath(res.fileName), { root: "./" });
     }
     else{
@@ -73,7 +70,6 @@ module.exports.create = function (req, response){
     content.title=req.body.title;
     content.fileName = content.id + path.extname(req.file.originalname);
     content.src="content/"+content.id;
-    console.log(content);
     ContentModel.create(content, (err,res) => {
       if(err){
         return err;

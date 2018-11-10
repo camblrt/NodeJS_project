@@ -17,17 +17,18 @@ router.route("/login")
     response.send("It works");
   })
   .post(jsonParser, function(request, response){
-    console.log("recu");
+     response.send(true);
       axios.post('http://localhost:8080/FrontAuthWatcherWebService/rest/WatcherAuth', { "login": request.body.userName, "password":request.body.password})
       .then(function (res){
-        console.log(res);
+        let autorise = "NONE";
         if(res.data.validAuth === true){
           if(res.data.role === "USER"){
-            console.log("Je suis un User");
+            autorise = "USER";
           }
           else{
-            window.location = "http://localhost:1337/admin";
+            autorise = "ADMIN";
           }
+          response.send(autorise);
         }
       })
   });

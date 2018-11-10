@@ -17,7 +17,6 @@ var app = express();
 var server = http.createServer(app);// init server
 
 IOController.listen(server);
-//app.use(defaultRoute);
 app.use(presentationRoute);
 app.use(contentRoute);
 app.use(loginRoute);

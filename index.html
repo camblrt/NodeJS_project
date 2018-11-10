@@ -9,7 +9,18 @@
       var username = document.getElementById("username").value;
       var password = document.getElementById("password").value;
 
-       axios.post('http://localhost:1337/login', {"userName": username, "password": password});
+       axios.post('http://localhost:1337/login', {"userName": username, "password": password})
+       .then(function (res){
+         if(res.data === "ADMIN"){
+           window.location = "http://localhost:1337/admin";
+         }
+         else if(res.data === "USER"){
+           console.log("I am a user");
+         }
+         else{
+           alert("Wrong password");
+         }
+       });
     }
   </script>
 </head>
