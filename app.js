@@ -17,7 +17,7 @@ var app = express();
 var server = http.createServer(app);// init server
 
 IOController.listen(server);
-app.use(defaultRoute);
+//app.use(defaultRoute);
 app.use(presentationRoute);
 app.use(contentRoute);
 app.use(loginRoute);
@@ -25,5 +25,6 @@ app.use(loginRoute);
 app.use("/admin", express.static(path.join(__dirname, "build")));
 app.use("/static", express.static(path.join(__dirname, "build/static")));
 app.use("/watch", express.static(path.join(__dirname, "public/watch")));
+app.use("/", express.static(path.join(__dirname, "/")));
 
 server.listen(CONFIG.port);
