@@ -26,7 +26,7 @@ router.route("/login")
           else{
             autorise = "ADMIN";
           }
-          response.send(autorise);
         }
+        response.send(autorise);
       })
   });
