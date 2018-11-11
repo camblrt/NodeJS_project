@@ -113,6 +113,6 @@ module.exports.listen = function(httpServer, callback){
 
 function Broadcast(socketList, content){
   socketList.forEach((socket) => {
-    socket.emit('currentSlideState', content);
+    socket.emit("currentSlidEvent", content);
   });
 }
