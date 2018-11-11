@@ -16,9 +16,10 @@
          }
          else if(res.data === "USER"){
            console.log("I am a user");
+           window.location = "http://localhost:1337/watch";
          }
          else{
-            window.location = "http://localhost:1337/watch";
+           alert("Wrong password");
          }
        });
     }

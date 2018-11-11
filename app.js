@@ -23,7 +23,7 @@ app.use(loginRoute);
 
 app.use("/admin", express.static(path.join(__dirname, "build")));
 app.use("/static", express.static(path.join(__dirname, "build/static")));
-app.use("/watch", express.static(path.join(__dirname, "public/watch")));
+app.use("/watch", express.static(path.join(__dirname, "/public/watch")));
 app.use("/", express.static(path.join(__dirname, "/")));
 
 server.listen(CONFIG.port);
