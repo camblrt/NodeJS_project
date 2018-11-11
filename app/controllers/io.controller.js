@@ -17,79 +17,86 @@ module.exports.listen = function(httpServer, callback){
           var json = JSON.parse(res);
           switch (slide.CMD) {
               case "START":
-                ContentModel.read(json.slidArray[0].contentMap["1"], (err, res) =>{
-                  if(err){
-                    callback(err);
+                ContentModel.read(json.slidArray[0].content_id, (error, response) =>{
+                  if(error){
+                    callback(error);
                   }
-                  Broadcast(socketList, res);
+                  Broadcast(socketList, response);
                 });
               break;
               case "PAUSE":
-                Broadcast(socketList, ContentModel.read(slide.CONTENT_ID));
+                ContentModel.read(slide.CONTENT_ID, (error, response)=>{
+                  if(error){
+                    callback(error);
+                  }
+                  Broadcast(socketList, response);
+                });
               break;
               case "END":
-                let i = res.slidArray.length;
-                ContentModel.read(json.slidArray[i-1].contentMap["1"], (err, res)=>{
-                  if(err){
-                    callback(err);
+                let i = json.slidArray.length;
+                ContentModel.read(json.slidArray[i-1].content_id, (error, response)=>{
+                  if(error){
+                    callback(error);
                   }
-                  Broadcast(socketList, res);
+                  Broadcast(socketList, response);
                 });
               break;
               case "BEGIN":
-                ContentModel.read(json.slidArray[0].contentMap["1"], (err, res)=>{
-                  if(err){
-                    callback(err);
+                ContentModel.read(json.slidArray[0].content_id, (error, response)=>{
+                  if(error){
+                    callback(error);
                   }
-                  Broadcast(socketList, res);
+                  Broadcast(socketList, response);
                 });
               break;
               case "PREV":
               let n = 0;
-                res.slidArray.forEach(contentItem => {
-                  if(contentItem.id === slide.CONTENT_ID){
+                json.slidArray.forEach(contentItem => {
+                  if(contentItem.content_id === slide.CONTENT_ID){
                     if(n != 0){
-                      ContentModel.read(json.slidArray[n-1].contentMap["1"], (err, res)=>{
-                        if(err){
-                          callback(err);
+                      ContentModel.read(json.slidArray[n-1].content_id, (error, response)=>{
+                        if(error){
+                          callback(error);
                         }
-                        Broadcast(socketList, res);
+                        Broadcast(socketList, response);
                       });
                     }
                     else{
-                      ContentModel.read(json.slidArray[n].contentMap["1"], (err, res)=>{
-                        if(err){
-                          callback(err);
+                      ContentModel.read(json.slidArray[0].content_id, (error, response)=>{
+                        if(error){
+                          callback(error);
                         }
-                        Broadcast(socketList, res);
+                        Broadcast(socketList, response);
                       });
                     }
                   }
-                  i++;
+                  n++;
                 });
               break;
               case "NEXT":
               let m = 0;
-                res.slidArray.forEach(contentItem => {
-                  if(contentItem.id === res.CONTENT_ID){
-                    if(m != res.slidArray.length-1){
-                      ContentModel.read(json.slidArray[m+1].contentMap["1"], (err, res)=>{
-                        if(err){
-                          callback(err);
+                json.slidArray.forEach(contentItem => {
+                  if(contentItem.content_id === slide.CONTENT_ID){
+                    if(m != json.slidArray.length-1){
+                      ContentModel.read(json.slidArray[m+1].content_id, (error, response)=>{
+                        if(error){
+                          callback(error);
                         }
-                        Broadcast(socketList, res);
+                        Broadcast(socketList, response);
+                        return;
                       });
                     }
                     else{
-                      ContentModel.read(json.slidArray[m].contentMap["1"], (err, res)=>{
-                        if(err){
-                          callback(err);
+                      ContentModel.read(json.slidArray[m].content_id, (error, response)=>{
+                        if(error){
+                          callback(error);
                         }
-                        Broadcast(socketList, res);
+                        Broadcast(socketList, response);
+                        return;
                       });
                     }
                   }
-                  i++;
+                  m++;
                 });
               break;
             default:

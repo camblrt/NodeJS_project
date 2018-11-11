@@ -15,8 +15,9 @@
                 socket.on('connection', function(data){
                 alert("Message is sent...");
                 socket.emit('data_comm', { my: 'data' });
-                socket.emit('slidEvent', {"CMD" : "START",
-                                          "PRES_ID" : "efa0a79a-2f20-4e97-b0b7-71f824bfe349"})
+                socket.emit('slidEvent', {"CMD" : "PREV",
+                                          "PRES_ID" : "efa0a79a-2f20-4e97-b0b7-71f824bfe349",
+                                          "CONTENT_ID": "62cf58dd-ecb1-495a-899c-b7c633fa1df7"})
               });
         }
   </script>
