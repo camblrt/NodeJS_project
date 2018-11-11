@@ -4,9 +4,25 @@
   <title>Ma première page avec du style</title>
 </head>
 <script type="text/javascript" src="/socket.io/socket.io.js">
-var socket = io.connect();
-socket.on('connection', (data)=>{
-  socket.emit('_data_com_', data);
-});
-socket.emit('connection');
 </script>
+<script type = "text/javascript">
+        function WebSocketTest() {
+              // Let us open a web socket
+              var socket = io("http://localhost:1337");
+                socket.on('connection', function(data){
+                console.log("second step done");
+                alert("Message is sent...");
+                console.log(data);
+                socket.emit('data_comm', { my: 'data' });
+                socket.emit('slidEvent', {"CMD" : "START",
+                                          "PRES_ID" : "efa0a79a-2f20-4e97-b0b7-71f824bfe349"})
+              });
+        }
+  </script>
+
+<body>
+<div id = "sse">
+  <input type = "button" onclick = "javascript:WebSocketTest()" value = "Click here"/>
+
+</div>
+</body>
